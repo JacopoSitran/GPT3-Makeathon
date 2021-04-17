@@ -26,17 +26,6 @@ def conv(to_be_conv): #I pass a list containing strings
     return conv
 
 
-def explode_encoding(string_enc): #some encod are like '1-2' i have to explode it into ['1','2']
-    tmp = string_enc.split("-")
-    if isinstance(tmp,list):
-        return tmp
-    tmp = string_enc.split(",")
-    if isinstance(tmp,list):
-        return tmp
-
-    return tmp #if I am here, i only have one number, so i just return the one i received as a list
-
-
 
 def get_pos(string_email):
 
