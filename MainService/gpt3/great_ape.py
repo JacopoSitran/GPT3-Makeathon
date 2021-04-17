@@ -1,8 +1,7 @@
 import openai
 from chronological import read_prompt, cleaned_completion, main
 from .constants import *
-from search_results_utils import *
-
+from .search_results_utils import *
 
 async def classify_erl_erk(input_data):
     print("Here")
@@ -29,22 +28,6 @@ async def semantic_search_erl_erk(input_data):
         return classify_erl_erk(input_data)
 
     return search_results[0].type
-
-def create_search_results(search_response):
-    return [SearchResult(datum) for datum in response["data"]].sort(key=lambda sr: sr.score)
-
-def rel_diff_is_too_low(search_results):
-    return len(search_results) > 1 and rel_diff(search_results[0].score, search_results[1].score) < MIN_REL_DIFF
-
-def rel_diff(a, b):
-    return (a - b)/ a
-
-class SearchResult:
-    TYPES = [["erk", "elk"], ["erk"], ["elk"]]
-
-    def __init__(self, search_result_json):
-        self.type=TYPES[search_result_json["document"]]
-        self.score=search_result_json["score"]
 
 async def logic(input_data):
     result = await classify_erl_erk(input_data)
