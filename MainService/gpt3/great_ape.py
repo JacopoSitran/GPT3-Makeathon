@@ -13,8 +13,8 @@ async def classify_erl_erk(input_data):
     m = re.search(r"\[([a-z,]+)\]", completion_extract_erk_info)
     return m.group(0).split(", ") if m else []
 
-async def semantic_search_erl_erk(input_data):
-    response = await openai.Engine("davinci").search(
+def semantic_search_erl_erk(input_data):
+    response = openai.Engine("davinci").search(
         search_model="davinci",
         query=input_data,
         documents=[
