@@ -1,3 +1,4 @@
+import re
 import openai
 from chronological import read_prompt, cleaned_completion, main
 from .constants import *
@@ -7,10 +8,10 @@ async def classify_erl_erk(input_data):
     print("Here")
     prompt_extract_erk_info = prompt
     prompt_extract_erk_info += input_data
-    prompt_extract_erk_info += extracted_ids
     completion_extract_erk_info = await cleaned_completion(prompt_extract_erk_info, max_tokens=200, engine="davinci", temperature=0.5, top_p=1, frequency_penalty=0.2, stop=["\n\n"])
 
-    return completion_extract_erk_info
+    m = re.search(r"\[([a-z,]+)\]", completion_extract_erk_info)
+    return m.group(0).split(", ") if m else []
 
 async def semantic_search_erl_erk(input_data):
     response = await openai.Engine("davinci").search(
