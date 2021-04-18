@@ -4,7 +4,7 @@ from gpt3 import great_ape
 
 async def procedure():
 
-    response_objects = await email_service.process_new_messages(great_ape.classify_erl_erk)
+    response_objects = await email_service.process_new_messages(great_ape.call_gpt3)
     for response_object in response_objects:
         email_service.send_message(response_object)
 
