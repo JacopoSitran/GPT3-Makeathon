@@ -13,7 +13,7 @@ async def classify_erl_erk(input_data):
     m = re.search(r"\[([a-z,]+)\]", completion_extract_erk_info)
     return m.group(0).split(", ") if m else []
 
-def semantic_search_erl_erk(input_data):
+async def semantic_search_erl_erk(input_data):
     response = openai.Engine("davinci").search(
         search_model="davinci",
         query=input_data,
@@ -26,7 +26,7 @@ def semantic_search_erl_erk(input_data):
 
     search_results = create_search_results(response)
     if rel_diff_is_too_small(search_results):
-        return classify_erl_erk(input_data)
+        return await classify_erl_erk(input_data)
 
     return search_results[0].type
 
