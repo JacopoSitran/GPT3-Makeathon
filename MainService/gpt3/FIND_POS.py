@@ -59,7 +59,7 @@ def get_pos(string_email):
                 if x[0] == key:
                     list.append(x[1])
             converted = conv(list) #returns ['1-2'] fashion
-            dict[key] = list(converted)
+            dict[key] = [converted]
 
 
         return (dict,keys)
