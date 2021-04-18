@@ -13,6 +13,6 @@ def summarize(order):
 
     return '\n'.join(resp)
 
-ERROR_MESSAGE = """leider haben wir keine gültige Produktbestellungnummern von Ihnen erhalten.
+ERROR_MESSAGE = """leider haben wir keine gueltige Produktbestellungnummern von Ihnen erhalten.
 Ein Produktbestellungnummer besteht aus 10-stelligem Ziffer.
-Bitte beprüfen Sie nochmal Ihre Produktbestellung."""
+Bitte bepruefen Sie nochmal Ihre Produktbestellung."""
