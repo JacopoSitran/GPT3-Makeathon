@@ -5,11 +5,6 @@ import json
 patternPO = r'(?<=PO\: )(.*?)(?=\n)'
 pattern = r'(?<=Positions\: \[)(.*?)(?=\])'
 
-path = r'C:\Users\Ale\Downloads\GPT-3-Hackaton-Dataset-handout.xlsx'
-#df = pd.read_excel(path)
-#string = df.iloc[0].loc["combined_email"]
-
-
 
 def merge(list1, list2):
     merged_list = [(list1[i], list2[i]) for i in range(0, len(list1))]
@@ -72,5 +67,9 @@ def get_pos(string_email):
     finally:
         pass
 
-#print(get_pos(string))
-print("fuck the police")
+if __name__ == "__main__":
+    path = r'C:\Users\Ale\Downloads\GPT-3-Hackaton-Dataset-handout.xlsx'
+    df = pd.read_excel(path)
+    string = df.iloc[0].loc["combined_email"]
+    print(get_pos(string))
+    print("fuck the police")
