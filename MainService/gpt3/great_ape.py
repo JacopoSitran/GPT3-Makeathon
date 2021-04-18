@@ -1,8 +1,56 @@
+import json
 import re
 import openai
 from chronological import read_prompt, cleaned_completion, main
 from .constants import *
 from .search_results_utils import *
+from .FIND_POS import get_pos
+from .Open_or_close import ClassifyAction
+from .create_email_from_json import create_email_response
+
+async def call_gpt3(input_data):
+    orders = await create_orders(input_data)
+    response = create_email_response(orders)
+    json_response = create_json_response(orders)
+    print(json_response)
+    return response
+
+def create_json_response(orders):
+    json_orders = [order.to_dict_item() for order in orders]
+    d = {"orders": json_orders}
+    print(d)
+    return json.dumps(d)
+
+async def create_orders(input_data):
+    categories = await semantic_search_erl_erk(input_data)
+    positions, _ = get_pos(input_data)
+    action = ClassifyAction(input_data)
+    pos = positions.keys()
+    orders = [Order(po, categories, positions[po], action) for po in pos]
+    return orders
+
+class Order:
+    def __init__(self, po, categories, positions, action):
+        self.po = po
+        self.categories = categories
+        self._positions = positions if positions else ["alle"]
+        self.action = action
+
+    @property
+    def is_open(self):
+        self.action == "Open"
+
+    @property
+    def positions(self):
+        return ", ".join(self._positions)
+
+    def to_dict_item(self):
+        return {
+                'PO': self.po,
+                'Positions': self._positions,
+                'Action': self.action,
+                'Type': self.categories
+                }
 
 async def classify_erl_erk(input_data):
     print("Here")
