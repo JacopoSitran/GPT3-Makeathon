@@ -26,7 +26,9 @@ async def semantic_search_erl_erk(input_data):
 
     search_results = create_search_results(response)
     if rel_diff_is_too_small(search_results):
-        return await classify_erl_erk(input_data)
+        classify_result = await classify_erl_erk(input_data)
+        if classify_result:
+            return classify_result
 
     return search_results[0].type
 
