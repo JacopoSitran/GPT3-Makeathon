@@ -1,5 +1,6 @@
 def create_email_response(orders):
-    return 'Sehrgeehrte Kundin / Kunde\n\n' + '\n\n'.join([summarize(order) for order in orders] + ['Vielen dank'])
+    body = [summarize(order) for order in orders] if orders else [ERROR_MESSAGE]
+    return '\n\n'.join(("Sehr geehrte Kundin / Kunde", *body, 'Vielen dank'))
 
 def summarize(order):
     resp = [
@@ -11,3 +12,7 @@ def summarize(order):
     resp.append('Die Bestellung ist immer noch offen.' if order.is_open else 'Bestellung ist jetzt geschlossen.')
 
     return '\n'.join(resp)
+
+ERROR_MESSAGE = """leider haben wir keine gültige Produktbestellungnummern von Ihnen erhalten.
+Ein Produktbestellungnummer besteht aus 10-stelligem Ziffer.
+Bitte beprüfen Sie nochmal Ihre Produktbestellung."""
