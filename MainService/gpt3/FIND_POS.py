@@ -58,7 +58,8 @@ def get_pos(string_email):
             for x in pre_json:
                 if x[0] == key:
                     list.append(x[1])
-            dict[key] = list
+            converted = conv(list) #returns ['1-2'] fashion
+            dict[key] = converted
 
 
         return (dict,keys)
